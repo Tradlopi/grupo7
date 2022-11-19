@@ -38,7 +38,7 @@ export function Login() {
                             {/* <!-- Nested Row within Card Body --> */}
                             <div className="row">
                                 <div className="col-lg-6 d-none d-lg-block bg-login-image">
-                                    <img src="./login.jpg" alt="foto bienvenida" width="50%" height="50%" />
+                                    <img src="./login.jpg" alt="foto bienvenida" width="100%" height="100%" />
                                 </div>
                                 <div className="col-lg-6">
                                     <div className="p-5">
@@ -79,7 +79,7 @@ export function Login() {
                                                     <label
                                                     className="custom-control-label"
                                                     htmlFor="customCheck"
-                                                    >Recuerdame</label
+                                                    > Recuerdame</label
                                                     >
                                                 </div>
                                             </div>

@@ -9,7 +9,7 @@ export function Register() {
             {/* <!-- Nested Row within Card Body --> */}
             <div className="row">
               <div className="col-lg-5 d-none d-lg-block bg-register-image">
-                <img src="./register.jpg" width="50%" height="50%" alt="" />
+                <img src="./register.jpg" width="100%" height="100%" alt="" />
               </div>
               <div className="col-lg-7">
                 <div className="p-5">
