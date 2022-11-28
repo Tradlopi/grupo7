@@ -1,10 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
+import { Navigate, Routes, Route, useNavigate } from 'react-router-dom'
 
 export function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [validacion, setValidacion] = useState('')
+    const navigate = useNavigate();
 
     const handleSubmit = (e)=>{
         e.preventDefault()
@@ -12,9 +14,10 @@ export function Login() {
             setValidacion('Algun campo esta vacio')
             return
         }
-        alert(`Hemos obtenido los siguientes valores: \nemail: ${email} \npass: ${password}`)
+        alert(`Hemos obtenido los siguientes valores: \nemail: ${email}`)
         setEmail('')
         setPassword('')
+        navigate('/ListaOrdenes')
     }
 
     const handleChangeEmail = (e)=>{
@@ -98,8 +101,9 @@ export function Login() {
                                             >
                                         </div> --> */}
                                         <div className="text-center">
-                                            <a className="small" href="#register"
+                                            <a className="small" href="/Register"
                                             >No tengo una cuenta!</a>
+                                            
                                             <br />
                                             <hr />
                                         </div>
