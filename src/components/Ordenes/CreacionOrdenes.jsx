@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
 import { Navigate, Routes, Route, useNavigate } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 
 export function CreacionOrdenes() {
   const navigate = useNavigate();
@@ -10,16 +10,15 @@ export function CreacionOrdenes() {
     navigate('/ListaOrdenes')
 }
   return (
+
     <section className="page-section bg-white" id="create">
       <div className="container">
         <div className="card o-hidden border-0 shadow-lg my-5">
           <div className="card-body p-0">
-            {/* <div className="row">
-              <div className="col-lg-5 d-none d-lg-block bg-register-image">
-                <img src="./register.jpg" width="100%" height="80%" alt="" />
-              </div> */}
               <div className="col-lg-12">
                 <div className="p-5">
+                  <Link className="btn btn-link books-home__create" to='/Login'>Cerrar sesión</Link>
+                  <br /> 
                   <div className="text-center">
                     <h1 className="h4 text-gray-900 mb-4">Registro de Órdenes (Recogida)</h1>
                   </div>

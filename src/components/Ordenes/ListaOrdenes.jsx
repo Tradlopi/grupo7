@@ -41,9 +41,8 @@ export function ListaOrdenes() {
   return (
     <>
             <div>
-                <Link className="btn btn-primary books-home__create" to='/CreacionOrdenes'>Crear nueva orden</Link>
-                <br />
-            
+                <Link className="btn btn-link books-home__create" to='/Login'>Cerrar sesión</Link>
+                <br />     
                 <table className="table table-striped">
                     <thead>
                         <tr>
@@ -69,6 +68,8 @@ export function ListaOrdenes() {
                         })}
                     </tbody>
                 </table>
+                <Link className="btn btn-primary books-home__create" to='/CreacionOrdenes'>Crear nueva orden</Link>
+                <br /> 
             </div>
             
         </>

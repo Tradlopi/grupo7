@@ -1,6 +1,8 @@
 import React from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Navigate, Routes, Route, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 
 export function ActualizacionOrdenes() {
     const navigate = useNavigate();
@@ -17,6 +19,8 @@ export function ActualizacionOrdenes() {
                
             <div className="col-lg-12">
                 <div className="p-5">
+                  <Link className="btn btn-link books-home__create" to='/Login'>Cerrar sesión</Link>
+                  <br />
                     <div className="text-center">
                         <h1 className="h4 text-gray-900 mb-4">Actualización de Órdenes (Recogida)</h1>
                     </div>
