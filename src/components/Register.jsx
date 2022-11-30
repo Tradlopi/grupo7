@@ -74,8 +74,8 @@ export function Register() {
                     >
                   </div> --> */}
                   <div className="text-center">
-                    <a className="small" href="#login"
-                      >Tienes una cuenta? logueate!</a
+                    <a className="small" href="/login"
+                      >Tienes una cuenta? ingresa!</a
                     >
                   </div>
                 </div>
