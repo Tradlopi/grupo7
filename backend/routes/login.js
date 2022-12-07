@@ -22,7 +22,7 @@ app.post('/login', (req, res) => {
                 }
             });
         }
-        console.log('H:'+userDB);
+        
         if (userDB.password == body.password) {
             res.json({
                 ok : true,

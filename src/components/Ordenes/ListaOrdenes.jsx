@@ -6,7 +6,7 @@ import axios from "axios"
 let lstOrdenes=[]
 const labels = [
     
-    "No. Servicio",
+
     "Fecha",
     "Ciudad de Entrega",
     "Dirección de Entrega",
@@ -49,7 +49,7 @@ export function ListaOrdenes() {
                             return (
                                 <tr key={index}>
                                     
-                                    <td>{orden.noServicio}</td>
+                                    
                                     <td>{orden.fecha}</td>
                                     <td>{orden.ciudadEntrega}</td>
                                     <td>{orden.direccionEntrega}</td>

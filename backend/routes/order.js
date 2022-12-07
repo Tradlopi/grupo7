@@ -20,6 +20,17 @@ const app = express();
                     });
                 });
     });    
+
+    app.get('/order/:id', (req, res, next) => {
+        console.log(req.params)
+        order.findById(req.params.id, (error, data) => {
+                if (error) {
+                    return next(error)
+                } else {
+                    res.json(data)
+                }
+            })
+});   
     //POST
      app.post('/order',(req, res, next) => {
      console.log(req.body);

@@ -1,13 +1,77 @@
 import React from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
-import { Navigate, Routes, Route, useNavigate } from 'react-router-dom'
+import { Navigate, Routes, Route, useNavigate, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import axios from "axios";
-import { useState } from 'react';
+import { useEffect, useState } from "react"
+
+
 
 
 export function ActualizacionOrdenes() {
+  const { register, handleSubmit, setValue } = useForm();
+  const { id } = useParams()
+    const [order, setOrden] = useState(null)
+
+    const customSubmit = (dataForm) => {
+
+        // if (direccion1.length===0 || ciudad1.length ===0 || nombre.length ===0 || identificacion.length ===0 || direccion2.length ===0 || ciudad2.length ===0 
+        //   || largo.length ===0 || ancho.length ===0 || alto.length ===0 || peso.length ===0 || fecha.length ===0){
+        //   setValidacion('Algun campo esta vacio')
+        //   return
+        // }
+      let data = {
+          id:id,
+          largo:dataForm.largo, 
+          ancho:dataForm.ancho,
+          alto:dataForm.alto,
+          peso:dataForm.peso,
+          direccionRecogida:dataForm.direccion1,
+          ciudadRecogida:dataForm.ciudad1,
+          destinatario:dataForm.nombre,
+          identificacion:dataForm.identificacion,
+          direccionEntrega:dataForm.direccion2,
+          ciudadEntrega:dataForm.ciudad2,
+          fecha:dataForm.fecha
+      }
+      
+      axios
+          .put("http://localhost:8080/order", data)
+          .then(response => {
+              if (response.data.length != 0) {
+                  navigate('/ListaOrdenes')
+              } else {
+                  alert('Invalid input data. Please, try again')
+                  
+              }
+          })   
+      
+  }
+    useEffect(() => {
+        axios
+            .get("http://localhost:8080/order/" + id)
+            .then(response => {
+                console.log(response.data)
+               // const readAt = response.data.readAt
+                //response.data['readAt'] = dateFormat(readAt, "yyyy-mm-dd")
+                setOrden(response.data)
+                let data = response.data
+                //setIsEdit(true)
+                setValue('largo', data.largo)
+                setValue('ancho', data.ancho)
+                setValue('alto', data.alto)
+                setValue('peso', data.peso)
+                setValue('direccion1', data.direccionRecogida)
+                setValue('ciudad1', data.ciudadRecogida)
+                setValue('nombre', data.destinatario)
+                setValue('identificacion', data.identificacion)
+                setValue('direccion2', data.direccionEntrega)
+                setValue('ciudad2', data.ciudadEntrega)
+                setValue('fecha', data.fecha)
+            })
+    }, [])
+
     const [direccion1, setDireccion1] = useState('')
     const [ciudad1, setCiudad1] = useState('')
     const [nombre, setNombre] = useState('')
@@ -20,38 +84,7 @@ export function ActualizacionOrdenes() {
     const [peso, setPeso] = useState('')
     const [fecha, setFecha] = useState('')
     const navigate = useNavigate();
-    const handleSubmit = (e)=>{
-        e.preventDefault()
-        if (direccion1.length===0 || ciudad1.length ===0 || nombre.length ===0 || identificacion.length ===0 || direccion2.length ===0 || ciudad2.length ===0 
-          || largo.length ===0 || ancho.length ===0 || alto.length ===0 || peso.length ===0 || fecha.length ===0){
-          setValidacion('Algun campo esta vacio')
-          return
-      }
-      let data = {
-          largo:largo, 
-          ancho:ancho,
-          alto:alto,
-          peso:peso,
-          direccionRecogida:direccion1,
-          ciudadRecogida:ciudad1,
-          destinatario:nombre,
-          identificacion:identificacion,
-          direccionEntrega:direccion2,
-          ciudadEntrega:ciudad2,
-          fecha:fecha
-      }
-      
-      axios
-          .post("http://localhost:8080/order", data)
-          .then(response => {
-              if (response.data.length != 0) {
-                  navigate('/ListaOrdenes')
-              } else {
-                  alert('Invalid input data. Please, try again')
-                  
-              }
-          })   
-    }
+
     const handleChangeLargo = (e)=>{
     const largo = e.target.value
     setLargo(largo)
@@ -92,10 +125,10 @@ export function ActualizacionOrdenes() {
     const identificacion = e.target.value
     setIdentificacion(identificacion)
     }
-    const handleChangeFecha = (e) => {
+     const handleChangeFecha = (e) => {
     const fecha = e.target.value
-    setFecha(fecha)
-    }
+     setFecha(fecha)
+     }
        
   return (
     <section className="page-section bg-white" id="create">
@@ -112,13 +145,13 @@ export function ActualizacionOrdenes() {
                     </div>
                 </div>
             </div>
-            <form className="orden" onSubmit={handleSubmit}>
+            <form className="form" onSubmit={handleSubmit(customSubmit)}>
                   <div className="form-group row" align="left">
                   <label className="col-sm-2 col-form-label">Fecha y hora</label>                    
                   <div className="col-sm-10">
                       <input
                       type="datetime-local"
-                      value={fecha} 
+                      {...register("fecha", { required: true })}
                       onChange={handleChangeFecha}
                       />
                   </div>
@@ -140,16 +173,16 @@ export function ActualizacionOrdenes() {
             </div>
                   <div className="row">
                     <div className="col-md-3">
-                    <input type="text" className="form-control" placeholder="Largo" value={largo} onChange={handleChangeLargo}/>
+                    <input type="text" {...register("largo", { required: true })} className="form-control" placeholder="Largo" onChange={handleChangeLargo}/>
                     </div>
                     <div className="col-md-3">
-                      <input type="text" className="form-control" placeholder="Ancho" value={ancho} onChange={handleChangeAncho}/>
+                      <input type="text" {...register("ancho", { required: true })} className="form-control" placeholder="Ancho" onChange={handleChangeAncho}/>
                     </div>
                     <div className="col-md-3">
-                      <input type="text" className="form-control" placeholder="Alto" value={alto} onChange={handleChangeAlto}/>
+                      <input type="text" {...register("alto", { required: true })} className="form-control" placeholder="Alto" onChange={handleChangeAlto}/>
                     </div>
                     <div className="col-md-3">
-                      <input type="text" className="form-control" placeholder="Peso" value={peso} onChange={handleChangePeso}/>
+                      <input type="text" {...register("peso", { required: true })} className="form-control" placeholder="Peso" onChange={handleChangePeso}/>
                     </div>
                   </div>
                   <br />
@@ -162,7 +195,7 @@ export function ActualizacionOrdenes() {
                         className="form-control" 
                         id="address1" 
                         placeholder=""
-                        value={direccion1}
+                        {...register("direccion1", { required: true })}
                         onChange={handleChangeDireccion1}
                         />
                       </div>
@@ -175,7 +208,7 @@ export function ActualizacionOrdenes() {
                         className="form-control" 
                         id="city1" 
                         placeholder=""
-                        value={ciudad1}
+                        {...register("ciudad1", { required: true })}
                         onChange={handleChangeCiudad1}
                         />
                       </div>
@@ -188,7 +221,7 @@ export function ActualizacionOrdenes() {
                         className="form-control" 
                         id="name" 
                         placeholder=""
-                        value={nombre}
+                        {...register("nombre", { required: true })}
                         onChange={handleChangeNombre}
                         />
                       </div>
@@ -201,7 +234,7 @@ export function ActualizacionOrdenes() {
                         className="form-control" 
                         id="identification" 
                         placeholder=""
-                        value={identificacion}
+                        {...register("identificacion", { required: true })}
                         onChange={handleChangeIdentificacion}
                         />
                       </div>
@@ -214,7 +247,7 @@ export function ActualizacionOrdenes() {
                         className="form-control" 
                         id="address2" 
                         placeholder=""
-                        value={direccion2}
+                        {...register("direccion2", { required: true })}
                         onChange={handleChangeDireccion2}
                         />
                       </div>
@@ -227,7 +260,7 @@ export function ActualizacionOrdenes() {
                         className="form-control" 
                         id="city2" 
                         placeholder=""
-                        value={ciudad2}
+                        {...register("ciudad2", { required: true })}
                         onChange={handleChangeCiudad2}
                         />
                       </div>
