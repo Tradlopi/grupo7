@@ -1,6 +1,7 @@
-import React from 'react'
-import { useState } from 'react'
-import { Navigate, Routes, Route, useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useState } from 'react';
+import axios from "axios";
+import { Navigate, Routes, Route, useNavigate } from 'react-router-dom';
 
 export function Login() {
     const [email, setEmail] = useState('')
@@ -14,10 +15,25 @@ export function Login() {
             setValidacion('Algun campo esta vacio')
             return
         }
+        let data = {
+            email:email, 
+            password:password
+        }
         alert(`Hemos obtenido los siguientes valores: \nemail: ${email}`)
         setEmail('')
         setPassword('')
-        navigate('/ListaOrdenes')
+        axios
+            .post("http://localhost:8080/login", data)
+            .then(response => {
+                if (response.data.ok != false) {
+                    //localStorage.setItem('user_id', response.data.userDB._id)
+                    navigate('/ListaOrdenes')
+                } else {
+                    alert('Invalid input data. Please, try again')
+                    setValue('password', '')
+                }
+            })
+        
     }
 
     const handleChangeEmail = (e)=>{

@@ -1,32 +1,9 @@
 import React from 'react'
 import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
-const lstOrdenes = [
-    {
-        id: 1,
-        noServicio: '1',
-        fecha: '11/11/2022',
-        ciudadEntrega: 'Barranquilla',
-        direccionEntrega: 'Calle 1 #12-54',
-        estado: 'Guardado'
-    },
-    {
-        id: 2,
-        noServicio: '2',
-        fecha: '15/11/2022',
-        ciudadEntrega: 'Bogotá',
-        direccionEntrega: 'Carrera 13 #5-36',
-        estado: 'Cancelado'
-      },
-      {
-        id: 3,
-        noServicio: '3',
-        fecha: '20/12/2022',
-        ciudadEntrega: 'Cartagena',
-        direccionEntrega: 'Calle 1A #12-75',
-        estado: 'Cumplido'
-    }]
-
+let lstOrdenes=[]
 const labels = [
     
     "No. Servicio",
@@ -38,7 +15,21 @@ const labels = [
 ]
 
 export function ListaOrdenes() {
-  return (
+    const [lstOrdenes, setlstOrdenes] = useState(null)
+    const [update] = useState(false)
+
+    useEffect(() => {
+    
+    axios
+            .get("http://localhost:8080/orders")
+            .then(response => {
+                    setlstOrdenes(response.data.data)
+                
+            })  
+  
+    }, [update])
+
+    return (
     <>
             <div>
                 <Link className="btn btn-link books-home__create" to='/Login'>Cerrar sesión</Link>
@@ -52,7 +43,9 @@ export function ListaOrdenes() {
                         </tr>
                     </thead>
                     <tbody>
-                        {lstOrdenes.map((orden, index) => {
+
+                        {lstOrdenes !== null ? lstOrdenes.map((orden, index) => {
+                            
                             return (
                                 <tr key={index}>
                                     
@@ -62,10 +55,10 @@ export function ListaOrdenes() {
                                     <td>{orden.direccionEntrega}</td>
                                     <td>{orden.estado}</td>
                                     <td className="d-flex gap-2 justify-content-center">
-                                        <Link className="btn btn-success" to={'/ActualizacionOrdenes/' + orden.id}>Actualizar</Link>
+                                        <Link className="btn btn-success" to={'/ActualizacionOrdenes/' + orden._id}>Actualizar</Link>
                                     </td>
                                 </tr>)
-                        })}
+                        }) : ''}
                     </tbody>
                 </table>
                 <Link className="btn btn-primary books-home__create" to='/CreacionOrdenes'>Crear nueva orden</Link>

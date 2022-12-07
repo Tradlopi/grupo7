@@ -1,11 +1,8 @@
 const mongoose = require('mongoose');
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 let order = new Schema({
-    id:{
-        type: String,
-    },
     noServicio:{
         type: String,
     },
@@ -20,7 +17,34 @@ let order = new Schema({
     },
     estado:{
         type: String,
-    }
+    },
+    largo:{
+        type: String,
+    },
+    ancho:{
+        type: String,
+    },
+    alto:{
+        type: String,
+    },
+    peso:{
+        type: String,
+    },
+    direccionRecogida:{
+        type: String,
+    },
+    ciudadRecogida:{
+        type: String,
+    },
+    destinatario:{
+        type: String,
+    },
+    identificacion:{
+        type: String,
+    },
+
+},{
+    collection:'orders'
 });
 
-module.exports = mongoose.model('order', order)
+module.exports = mongoose.model('Order', order)

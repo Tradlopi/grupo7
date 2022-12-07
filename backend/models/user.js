@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let user = new Schema({
-    id:{
-        type: String,
-    },
+    // _id:{
+    //     type: String,
+    // },
     nombres:{
         type: String,
     },
@@ -19,6 +19,8 @@ let user = new Schema({
         type: String,
     }
     
+}, {
+    collection:'users'
 });
 
-module.exports = mongoose.model('user', user)
+module.exports = mongoose.model('User', user)

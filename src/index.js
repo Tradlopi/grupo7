@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 const app = express()
 
-app.set('port', 3007)
+app.set('port', 8080)
 
 app.listen(app.get('port'),()=>{
     console.log('Servidor levantado en el puerto ',app.get('port'))
